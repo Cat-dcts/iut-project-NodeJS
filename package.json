@@ -10,10 +10,13 @@
   "dependencies": {
     "@catdcts/iut-encrypt": "file:iut-encrypt",
     "@hapi/boom": "9.x.x",
+    "@hapi/inert": "^7.1.0",
     "@hapi/jwt": "^3.2.3",
+    "@hapi/vision": "^7.0.3",
     "@hapipal/haute-couture": "4.x.x",
     "@hapipal/schmervice": "^3.0.0",
     "@hapipal/schwifty": "^6.2.0",
+    "hapi-swagger": "^17.3.2",
     "joi": "17.x.x",
     "json2csv": "^6.0.0-alpha.2",
     "mysql2": "^3.16.1",
