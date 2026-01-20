@@ -8,6 +8,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@catdcts/iut-encrypt": "file:iut-encrypt",
     "@hapi/boom": "9.x.x",
     "@hapipal/haute-couture": "4.x.x",
     "@hapipal/schwifty": "^6.2.0",
