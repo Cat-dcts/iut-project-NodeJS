@@ -15,7 +15,8 @@
     "@hapipal/schmervice": "^3.0.0",
     "@hapipal/schwifty": "^6.2.0",
     "joi": "17.x.x",
-    "mysql2": "^3.16.1"
+    "mysql2": "^3.16.1",
+    "nodemailer": "^7.0.12"
   },
   "devDependencies": {
     "@hapi/code": "8.x.x",
