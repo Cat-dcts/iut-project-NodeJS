@@ -10,6 +10,7 @@
   "dependencies": {
     "@catdcts/iut-encrypt": "file:iut-encrypt",
     "@hapi/boom": "9.x.x",
+    "@hapi/jwt": "^3.2.3",
     "@hapipal/haute-couture": "4.x.x",
     "@hapipal/schmervice": "^3.0.0",
     "@hapipal/schwifty": "^6.2.0",

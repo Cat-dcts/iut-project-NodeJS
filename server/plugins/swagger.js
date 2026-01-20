@@ -17,7 +17,16 @@ module.exports = {
                 options: {
                     info: {
                         version: Package.version
-                    }
+                    },
+                    securityDefinitions: {
+                        jwt: {
+                            type: 'apiKey',
+                            name: 'Authorization',
+                            in: 'header',
+                            description: 'JWT Bearer token'
+                        }
+                    },
+                    security: [{ jwt: [] }]
                 }
             }
         ]);
