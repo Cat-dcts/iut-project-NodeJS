@@ -15,7 +15,7 @@ Une API REST complète pour gérer des utilisateurs, des films et des favoris, a
 2. npm install
 3. Créer MySQL avec Docker ou localement
 
-## ⚙Configuration
+## Configuration
 
 Créer .env :
 - DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE
