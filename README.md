@@ -64,5 +64,11 @@ Puis accéder à : http://localhost:3000/documentation
 - Export CSV
 - Migrations auto
 
+## Accès interface web
+
+Pour accéder à l'interface web, 
+se positionner sur la branche interface et 
+lancer le projet
+
 Dernière mise à jour : 21 Janvier 2026
 "@ | Set-Content README.md
