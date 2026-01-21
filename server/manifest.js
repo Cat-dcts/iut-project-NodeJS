@@ -34,6 +34,9 @@ module.exports = new Confidence.Store({
                 options: {}
             },
             {
+                plugin: '@hapi/inert'
+            },
+            {
                 plugin: './plugins/swagger'
             },
             {

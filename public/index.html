@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IUT Movies</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            padding: 40px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #764ba2;
+        }
+
+        .toggle-form {
+            text-align: center;
+            margin-top: 15px;
+            color: #666;
+        }
+
+        .toggle-form a {
+            color: #667eea;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .error {
+            color: #d32f2f;
+            background: #ffebee;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .dashboard {
+            display: none;
+        }
+
+        .dashboard h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .logout-btn {
+            background: #d32f2f;
+            width: auto;
+            padding: 8px 15px;
+            float: right;
+        }
+
+        .logout-btn:hover {
+            background: #b71c1c;
+        }
+
+        .movies-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .movie-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            background: #f9f9f9;
+        }
+
+        .movie-card h3 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .movie-card p {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .movie-actions {
+            display: flex;
+            gap: 5px;
+            font-size: 12px;
+        }
+
+        .movie-actions button {
+            flex: 1;
+            padding: 6px;
+            margin-top: 0;
+            font-size: 12px;
+        }
+
+        .add-movie {
+            background: #4caf50;
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .add-movie button {
+            background: #4caf50;
+        }
+
+        .add-movie button:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- LOGIN / SIGNUP -->
+    <div id="auth-section">
+        <h1>🎬 IUT Movies</h1>
+
+        <div class="error" id="error"></div>
+
+        <!-- LOGIN FORM -->
+        <div id="login-form">
+            <h2>Se connecter</h2>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="login-email" placeholder="your@email.com">
+            </div>
+            <div class="form-group">
+                <label>Mot de passe</label>
+                <input type="password" id="login-password" placeholder="••••••••">
+            </div>
+            <button onclick="login()">Connexion</button>
+            <div class="toggle-form">
+                Pas de compte ? <a onclick="toggleForms()">S'inscrire</a>
+            </div>
+        </div>
+
+        <!-- SIGNUP FORM -->
+        <div id="signup-form" class="hidden">
+            <h2>S'inscrire</h2>
+            <div class="form-group">
+                <label>Prénom</label>
+                <input type="text" id="signup-firstname" placeholder="John">
+            </div>
+            <div class="form-group">
+                <label>Nom</label>
+                <input type="text" id="signup-lastname" placeholder="Doe">
+            </div>
+            <div class="form-group">
+                <label>Nom d'utilisateur</label>
+                <input type="text" id="signup-username" placeholder="johndoe">
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="signup-email" placeholder="your@email.com">
+            </div>
+            <div class="form-group">
+                <label>Mot de passe</label>
+                <input type="password" id="signup-password" placeholder="••••••••">
+            </div>
+            <button onclick="signup()">Créer un compte</button>
+            <div class="toggle-form">
+                Déjà inscrit ? <a onclick="toggleForms()">Se connecter</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div id="dashboard" class="dashboard">
+        <button class="logout-btn" onclick="logout()">Déconnexion</button>
+        <h2>Bienvenue, <span id="user-name"></span>! 🍿</h2>
+
+        <div id="admin-section" class="hidden">
+            <div class="add-movie">
+                <h3>Ajouter un film</h3>
+                <div class="form-group">
+                    <input type="text" id="movie-title" placeholder="Titre">
+                </div>
+                <div class="form-group">
+                    <textarea id="movie-desc" placeholder="Description" rows="2"></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="date" id="movie-date">
+                </div>
+                <div class="form-group">
+                    <input type="text" id="movie-director" placeholder="Réalisateur">
+                </div>
+                <button onclick="addMovie()">Ajouter le film</button>
+            </div>
+        </div>
+
+        <h3>Films disponibles</h3>
+        <div id="movies-list" class="movies-list"></div>
+    </div>
+</div>
+
+<script>
+    const API_URL = 'http://localhost:3000';
+    let token = localStorage.getItem('token');
+    let currentUser = JSON.parse(localStorage.getItem('user') || '{}');
+
+    if (token) {
+        showDashboard();
+    }
+
+    function toggleForms() {
+        document.getElementById('login-form').classList.toggle('hidden');
+        document.getElementById('signup-form').classList.toggle('hidden');
+        clearError();
+    }
+
+    function showError(msg) {
+        const errorDiv = document.getElementById('error');
+        errorDiv.textContent = msg;
+        errorDiv.style.display = 'block';
+    }
+
+    function clearError() {
+        document.getElementById('error').style.display = 'none';
+    }
+
+    async function signup() {
+        const firstName = document.getElementById('signup-firstname').value;
+        const lastName = document.getElementById('signup-lastname').value;
+        const username = document.getElementById('signup-username').value;
+        const email = document.getElementById('signup-email').value;
+        const password = document.getElementById('signup-password').value;
+
+        if (!firstName || !lastName || !username || !email || !password) {
+            showError('Tous les champs sont obligatoires');
+            return;
+        }
+
+        try {
+            const res = await fetch(`${API_URL}/user`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ firstName, lastName, username, email, password })
+            });
+
+            if (res.ok) {
+                showError('');
+                alert('Compte créé ! Vous pouvez maintenant vous connecter.');
+                toggleForms();
+            } else {
+                const data = await res.json();
+                showError(data.message || 'Erreur lors de la création');
+            }
+        } catch (err) {
+            showError('Erreur serveur');
+        }
+    }
+
+    async function login() {
+        const email = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
+
+        if (!email || !password) {
+            showError('Email et mot de passe requis');
+            return;
+        }
+
+        try {
+            const res = await fetch(`${API_URL}/user/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+
+            if (res.ok) {
+                const data = await res.json();
+                token = data.token;
+                currentUser = data.user;
+                localStorage.setItem('token', token);
+                localStorage.setItem('user', JSON.stringify(currentUser));
+                showDashboard();
+            } else {
+                showError('Email ou mot de passe incorrect');
+            }
+        } catch (err) {
+            showError('Erreur serveur');
+        }
+    }
+
+    function logout() {
+        token = null;
+        currentUser = {};
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        document.getElementById('auth-section').style.display = 'block';
+        document.getElementById('dashboard').style.display = 'none';
+    }
+
+    function showDashboard() {
+        document.getElementById('auth-section').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+        document.getElementById('user-name').textContent = currentUser.firstName;
+
+        if (currentUser.scope && currentUser.scope.includes('admin')) {
+            document.getElementById('admin-section').style.display = 'block';
+        }
+
+        loadMovies();
+    }
+
+    async function loadMovies() {
+        try {
+            const res = await fetch(`${API_URL}/movies`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+
+            if (res.ok) {
+                const movies = await res.json();
+                displayMovies(movies);
+            }
+        } catch (err) {
+            console.error('Erreur');
+        }
+    }
+
+    async function displayMovies(movies) {
+        try {
+            // Charger les favoris pour savoir lesquels sont already saved
+            const favRes = await fetch(`${API_URL}/user/favorites`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            const favorites = favRes.ok ? await favRes.json() : [];
+            const favoriteIds = favorites.map(f => f.id);
+
+            const list = document.getElementById('movies-list');
+            list.innerHTML = '';
+
+            movies.forEach(movie => {
+                const card = document.createElement('div');
+                card.className = 'movie-card';
+                const isFavorite = favoriteIds.includes(movie.id);
+                const favoriteBtn = isFavorite ? '💔 Remove' : '❤️ Add';
+
+                let adminButtons = '';
+                if (currentUser.scope && currentUser.scope.includes('admin')) {
+                    adminButtons = `
+                    <button onclick="editMovie(${movie.id})">✏️ Modifier</button>
+                    <button onclick="deleteMovie(${movie.id})">🗑️ Supprimer</button>
+                `;
+                }
+
+                card.innerHTML = `
+                <h3>${movie.title}</h3>
+                <p><strong>Réalisateur:</strong> ${movie.director}</p>
+                <p>${movie.description.substring(0, 60)}...</p>
+                <div class="movie-actions">
+                    <button onclick="toggleFavorite(${movie.id})">${favoriteBtn}</button>
+                    ${adminButtons}
+                </div>
+            `;
+                list.appendChild(card);
+            });
+        } catch (err) {
+            console.error('Erreur');
+        }
+    }
+
+    async function addMovie() {
+        const title = document.getElementById('movie-title').value;
+        const description = document.getElementById('movie-desc').value;
+        const releaseDate = document.getElementById('movie-date').value;
+        const director = document.getElementById('movie-director').value;
+
+        if (!title || !description || !releaseDate || !director) {
+            alert('Tous les champs sont obligatoires');
+            return;
+        }
+
+        try {
+            const res = await fetch(`${API_URL}/movie`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ title, description, releaseDate, director })
+            });
+
+            if (res.ok) {
+                alert('Film ajouté !');
+                document.getElementById('movie-title').value = '';
+                document.getElementById('movie-desc').value = '';
+                document.getElementById('movie-date').value = '';
+                document.getElementById('movie-director').value = '';
+                loadMovies();
+            }
+        } catch (err) {
+            alert('Erreur');
+        }
+    }
+
+    async function editMovie(movieId) {
+        const newTitle = prompt('Nouveau titre:');
+        if (!newTitle) return;
+
+        const newDesc = prompt('Nouvelle description:');
+        const newDirector = prompt('Nouveau réalisateur:');
+        const newDate = prompt('Nouvelle date (YYYY-MM-DD):');
+
+        const updates = {};
+        if (newTitle) updates.title = newTitle;
+        if (newDesc) updates.description = newDesc;
+        if (newDirector) updates.director = newDirector;
+        if (newDate) updates.releaseDate = newDate;
+
+        try {
+            const res = await fetch(`${API_URL}/movie/${movieId}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(updates)
+            });
+
+            if (res.ok) {
+                alert('Film modifié !');
+                loadMovies();
+            } else {
+                alert('Erreur');
+            }
+        } catch (err) {
+            alert('Erreur');
+        }
+    }
+
+    async function deleteMovie(movieId) {
+        if (!confirm('Supprimer ce film ?')) return;
+
+        try {
+            const res = await fetch(`${API_URL}/movie/${movieId}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+
+            if (res.ok) {
+                alert('Film supprimé !');
+                loadMovies();
+            }
+        } catch (err) {
+            alert('Erreur');
+        }
+    }
+
+    async function toggleFavorite(movieId) {
+        try {
+            // Vérifier si c'est déjà en favoris
+            const favRes = await fetch(`${API_URL}/user/favorites`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            const favorites = favRes.ok ? await favRes.json() : [];
+            const isFavorite = favorites.some(f => f.id === movieId);
+
+            if (isFavorite) {
+                // Supprimer
+                const res = await fetch(`${API_URL}/user/favorite/${movieId}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (res.ok) {
+                    loadMovies();
+                }
+            } else {
+                // Ajouter
+                const res = await fetch(`${API_URL}/user/favorite`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ movieId })
+                });
+                if (res.ok) {
+                    loadMovies();
+                }
+            }
+        } catch (err) {
+            alert('Erreur');
+        }
+    }
+</script>
+</body>
+</html>
