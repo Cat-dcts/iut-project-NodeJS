@@ -13,7 +13,7 @@
 
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: black;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -180,7 +180,7 @@
 <div class="container">
     <!-- LOGIN / SIGNUP -->
     <div id="auth-section">
-        <h1>🎬 IUT Movies</h1>
+        <h1>IUT Movies</h1>
 
         <div class="error" id="error"></div>
 
@@ -234,7 +234,7 @@
     <!-- DASHBOARD -->
     <div id="dashboard" class="dashboard">
         <button class="logout-btn" onclick="logout()">Déconnexion</button>
-        <h2>Bienvenue, <span id="user-name"></span>! 🍿</h2>
+        <h2>Bienvenue, <span id="user-name"></span>!</h2>
 
         <div id="admin-section" class="hidden">
             <div class="add-movie">
@@ -400,13 +400,13 @@
                 const card = document.createElement('div');
                 card.className = 'movie-card';
                 const isFavorite = favoriteIds.includes(movie.id);
-                const favoriteBtn = isFavorite ? '💔 Remove' : '❤️ Add';
+                const favoriteBtn = isFavorite ? '💔' : '❤️';
 
                 let adminButtons = '';
                 if (currentUser.scope && currentUser.scope.includes('admin')) {
                     adminButtons = `
-                    <button onclick="editMovie(${movie.id})">✏️ Modifier</button>
-                    <button onclick="deleteMovie(${movie.id})">🗑️ Supprimer</button>
+                    <button onclick="editMovie(${movie.id})">✏️</button>
+                    <button onclick="deleteMovie(${movie.id})">🗑️</button>
                 `;
                 }
 
