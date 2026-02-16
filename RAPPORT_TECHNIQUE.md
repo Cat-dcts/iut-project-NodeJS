@@ -1,10 +1,8 @@
 # Rapport Technique - API de Gestion de Films
 
-**Auteur :** Étudiant IUT  
+**Auteur :** Cathy DESCOUTURES
 **Date :** 16 février 2026  
 **Projet :** API REST complète pour la gestion de films et d'utilisateurs
-
----
 
 ## Table des matières
 1. [Introduction](#introduction)
@@ -19,34 +17,28 @@
 10. [Challenges et solutions](#challenges-et-solutions)
 11. [Améliorations futures](#améliorations-futures)
 
----
-
 ## Introduction
 
 Cette API REST a été développée dans le cadre d'un projet scolaire pour démontrer les compétences en développement backend avec Node.js. Le projet offre une solution complète pour gérer une base de données de films avec authentification utilisateur, gestion des favoris et export de données.
 
 La particularité de ce projet réside dans l'utilisation d'une architecture moderne en couches avec séparation des responsabilités, permettant une maintenabilité et une scalabilité optimales.
 
----
-
 ## Objectifs du projet
 
 ### Objectifs fonctionnels
-- ✅ Permettre aux utilisateurs de créer des comptes et se connecter
-- ✅ Implémenter un système de gestion de films (CRUD complet)
-- ✅ Permettre aux utilisateurs d'ajouter des films en favoris
-- ✅ Fournir une fonctionnalité d'export de données en CSV
-- ✅ Envoyer des notifications par email
-- ✅ Implémenter un système d'authentification sécurisé
+-  Permettre aux utilisateurs de créer des comptes et se connecter
+-  Implémenter un système de gestion de films (CRUD complet)
+-  Permettre aux utilisateurs d'ajouter des films en favoris
+-  Fournir une fonctionnalité d'export de données en CSV
+-  Envoyer des notifications par email
+-  Implémenter un système d'authentification sécurisé
 
 ### Objectifs non-fonctionnels
-- ✅ Utiliser une API REST suivant les bonnes pratiques
-- ✅ Implémenter un système d'autorisation par rôles (RBAC)
-- ✅ Fournir une documentation API interactive
-- ✅ Assurer la sécurité des données (JWT, validation)
-- ✅ Permettre les migrations de base de données réversibles
-
----
+-  Utiliser une API REST suivant les bonnes pratiques
+-  Implémenter un système d'autorisation par rôles (RBAC)
+-  Fournir une documentation API interactive
+-  Assurer la sécurité des données (JWT, validation)
+-  Permettre les migrations de base de données réversibles
 
 ## Architecture générale
 
@@ -107,8 +99,6 @@ lib/
     └── user-favorite.js # Requêtes favoris
 ```
 
----
-
 ## Choix technologiques
 
 ### 1. Framework Web : Hapi.js
@@ -151,20 +141,20 @@ const user = await knex('users').where({ id: userId }).first();
 **Pourquoi JWT et pas les sessions classiques ?**
 
 **JWT :**
-- ✅ Stateless (pas besoin de session en mémoire/cache)
-- ✅ Scalable (parfait pour les microservices)
-- ✅ Sécurisé (signé avec un secret)
-- ✅ Expiration native
+-  Stateless (pas besoin de session en mémoire/cache)
+-  Scalable (parfait pour les microservices)
+-  Sécurisé (signé avec un secret)
+-  Expiration native
 
 **Sessions :**
-- ❌ Nécessite un stockage centralisé
-- ❌ Moins scalable
-- ❌ Complexe à gérer en distribué
+-  Nécessite un stockage centralisé
+-  Moins scalable
+-  Complexe à gérer en distribué
 
 **Token décision : 4 heures d'expiration**
-- ✅ Pas trop court (pas besoin de se reconnecter constamment)
-- ✅ Pas trop long (sécurité)
-- ✅ Bon équilibre pour une app web
+-  Pas trop court (pas besoin de se reconnecter constamment)
+-  Pas trop long (sécurité)
+-  Bon équilibre pour une app web
 
 ### 4. Email : Nodemailer avec Ethereal
 
@@ -211,7 +201,6 @@ if (!password || password.length < 8) throw new Error('Invalid password');
 - Gère automatiquement les délimiteurs et échappement
 - Parfait pour une fonctionnalité simple
 
----
 
 ## Fonctionnalités implémentées
 
@@ -313,8 +302,6 @@ await mailService.sendWelcomeEmail({
 });
 ```
 
----
-
 ## Modèle de données
 
 ### Table `users`
@@ -371,8 +358,6 @@ CREATE TABLE user_favorites (
 - Requête rapide pour récupérer les favoris d'un user
 - Garantit une relation 1-N user vers movies
 - Empêche les doubloursnat les favoris
-
----
 
 ## Authentification et autorisation
 
@@ -442,8 +427,6 @@ CREATE TABLE user_favorites (
 }
 ```
 
----
-
 ## Services et logique métier
 
 ### Séparation routes ↔ services
@@ -485,12 +468,11 @@ findByEmail(email) {
 
 | Aspect | Route | Service | Model |
 |--------|-------|---------|-------|
-| Testabilité | ❌ Difficile | ✅ Facile | ✅ Facile |
-| Réutilisabilité | ❌ Non | ✅ Oui | ✅ Oui |
-| Maintenabilité | ❌ Accouplée | ✅ Découplée | ✅ Découplée |
+| Testabilité |  Difficile |  Facile |  Facile |
+| Réutilisabilité |  Non |  Oui |  Oui |
+| Maintenabilité |  Accouplée |  Découplée |  Découplée |
 | Responsabilité | HTTP | Logique | DB |
 
----
 
 ## Configuration et déploiement
 
@@ -567,7 +549,6 @@ Pour la production :
    npm start
    ```
 
----
 
 ## Challenges et solutions
 
@@ -620,7 +601,7 @@ host: '127.0.0.1'  // Au lieu de 'localhost'
 - Tous les emails peuvent être consultés sans configuration
 - Facile de basculer en production
 
----
+
 
 ## Améliorations futures
 
@@ -676,22 +657,16 @@ host: '127.0.0.1'  // Au lieu de 'localhost'
     - Docker + Kubernetes
     - CI/CD avec GitHub Actions
 
----
+
 
 ## Conclusion
 
 Ce projet démontre une compréhension solide des principes de développement backend :
 
-- ✅ **Architecture propre** : Séparation des responsabilités
-- ✅ **Sécurité** : JWT, hashage, validation
-- ✅ **Scalabilité** : Design stateless, migrations versionnées
-- ✅ **Maintenabilité** : Code organisé et testable
-- ✅ **Documentation** : README complet et exemples
+-  **Architecture propre** : Séparation des responsabilités
+-  **Sécurité** : JWT, hashage, validation
+-  **Scalabilité** : Design stateless, migrations versionnées
+-  **Maintenabilité** : Code organisé et testable
+-  **Documentation** : README complet et exemples
 
 Le projet est production-ready pour un MVP et facilement extensible pour les futures fonctionnalités.
-
----
-
-**Auteur :** Étudiant IUT  
-**Date :** 16 février 2026  
-**Durée totale du projet :** ~40 heures

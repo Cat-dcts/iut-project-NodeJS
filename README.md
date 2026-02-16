@@ -2,7 +2,7 @@
 
 Une API REST complète et professionnelle pour gérer des utilisateurs, des films et des favoris, avec authentification JWT, notifications par email et export de données CSV.
 
-## 📋 Table des matières
+## Table des matières
 
 - [À propos](#-à-propos)
 - [Fonctionnalités](#-fonctionnalités)
@@ -16,25 +16,25 @@ Une API REST complète et professionnelle pour gérer des utilisateurs, des film
 - [Migrations de données](#-migrations-de-données)
 - [Structure du projet](#-structure-du-projet)
 
-## 📖 À propos
+## À propos
 
 Ce projet est une API REST construite avec **Hapi.js** et **MySQL**, développée dans le cadre d'un projet scolaire IUT. L'API offre une gestion complète des utilisateurs, des films et des favoris avec un système d'authentification robuste par JWT et des fonctionnalités avancées comme l'export CSV et les notifications email.
 
-## ✨ Fonctionnalités
+## Fonctionnalités
 
 ### Core Features
-- ✅ **Authentification JWT** avec tokens de 4 heures
-- ✅ **Système de rôles** (Admin/User) avec contrôle d'accès
-- ✅ **Gestion complète des utilisateurs** (CRUD)
-- ✅ **Gestion des films** (CRUD) - admin seulement
-- ✅ **Système de favoris** - chaque utilisateur peut ajouter/retirer des films en favoris
-- ✅ **Export de données** en format CSV
-- ✅ **Notifications par email** (intégration Ethereal/Nodemailer)
-- ✅ **Migrations de base de données automatiques**
-- ✅ **Validation des données** avec Joi
-- ✅ **Documentation API interactive** avec Swagger/Hapi-Swagger
+- **Authentification JWT** avec tokens de 4 heures
+- **Système de rôles** (Admin/User) avec contrôle d'accès
+- **Gestion complète des utilisateurs** (CRUD)
+- **Gestion des films** (CRUD) - admin seulement
+- **Système de favoris** - chaque utilisateur peut ajouter/retirer des films en favoris
+- **Export de données** en format CSV
+- **Notifications par email** (intégration Ethereal/Nodemailer)
+- **Migrations de base de données automatiques**
+- **Validation des données** avec Joi
+- **Documentation API interactive** avec Swagger/Hapi-Swagger
 
-## 🏗️ Architecture
+## Architecture
 
 **Stack technologique :**
 - **Framework Web** : Hapi.js v20 (framework HTTP robuste)
@@ -60,7 +60,7 @@ Models (Knex queries)
 Database (MySQL)
 ```
 
-## 📦 Prérequis
+## Prérequis
 
 - **Node.js** v18+ ([télécharger](https://nodejs.org/))
 - **npm** v9+
@@ -74,7 +74,7 @@ node --version  # v18.x.x minimum
 npm --version   # v9.x.x minimum
 ```
 
-## 🚀 Installation
+## Installation
 
 ### Étape 1 : Cloner le projet
 ```bash
@@ -124,9 +124,9 @@ MAIL_USER=votre_email@ethereal.email     # https://ethereal.email/register
 MAIL_PASS=votre_mot_de_passe_ethereal
 ```
 
-**⚠️ Créer aussi `server/.env` avec le même contenu** (le serveur charge le `.env` depuis le répertoire `server/`)
+**Créer aussi `server/.env` avec le même contenu** (le serveur charge le `.env` depuis le répertoire `server/`)
 
-### ℹ️ Configuration Email (Développement)
+### Configuration Email (Développement)
 
 Pour les tests en développement, utilisez **Ethereal Email** (service gratuit) :
 
@@ -137,7 +137,7 @@ Pour les tests en développement, utilisez **Ethereal Email** (service gratuit) 
 
 Pour la production, remplacez par un vrai service (Gmail, SendGrid, etc.)
 
-## 🏃 Lancement
+## Lancement
 
 ### Démarrer l'API
 ```bash
@@ -159,7 +159,7 @@ npm test              # Lancer tous les tests
 npm run lint          # Vérifier la qualité du code
 ```
 
-## 📚 Documentation API
+## Documentation API
 
 ### Authentification
 L'API utilise **JWT (JSON Web Token)** pour l'authentification. Les tokens sont valides pendant **4 heures**.
@@ -173,13 +173,13 @@ L'API utilise **JWT (JSON Web Token)** pour l'authentification. Les tokens sont 
 
 ### Routes disponibles
 
-#### 🔓 Authentification (Sans token)
+#### Authentification (Sans token)
 | Méthode | Route | Description |
 |---------|-------|-------------|
 | POST | `/user` | Créer un nouveau compte |
 | POST | `/user/login` | Se connecter et obtenir un JWT |
 
-#### 👥 Utilisateurs (Token requis)
+#### Utilisateurs (Token requis)
 | Méthode | Route | Description | Rôle |
 |---------|-------|-------------|------|
 | GET | `/users` | Lister tous les utilisateurs | Admin |
@@ -187,7 +187,7 @@ L'API utilise **JWT (JSON Web Token)** pour l'authentification. Les tokens sont 
 | PATCH | `/user/{id}` | Modifier un utilisateur | Admin |
 | DELETE | `/user/{id}` | Supprimer un utilisateur | Admin |
 
-#### 🎬 Films (Token requis)
+#### Films (Token requis)
 | Méthode | Route | Description | Rôle |
 |---------|-------|-------------|------|
 | POST | `/movie` | Créer un film | Admin |
@@ -196,14 +196,14 @@ L'API utilise **JWT (JSON Web Token)** pour l'authentification. Les tokens sont 
 | PATCH | `/movie/{id}` | Modifier un film | Admin |
 | DELETE | `/movie/{id}` | Supprimer un film | Admin |
 
-#### ⭐ Favoris (Token requis)
+#### Favoris (Token requis)
 | Méthode | Route | Description |
 |---------|-------|-------------|
 | POST | `/user/favorite` | Ajouter un film en favori |
 | GET | `/user/favorites` | Lister les favoris de l'utilisateur |
 | DELETE | `/user/favorite/{movieId}` | Retirer un film des favoris |
 
-#### 📊 Export (Token requis)
+#### Export (Token requis)
 | Méthode | Route | Description | Rôle |
 |---------|-------|-------------|------|
 | POST | `/movies/export` | Exporter les films en CSV | Admin |
@@ -230,7 +230,7 @@ curl -X GET http://127.0.0.1:8000/movies \
   -H "Authorization: Bearer eyJhbGc..."
 ```
 
-## 📝 Types de comptes
+## Types de comptes
 
 ### Compte Admin (pour tester)
 - **Email** : `a@b.com`
@@ -240,7 +240,7 @@ curl -X GET http://127.0.0.1:8000/movies \
 ### Créer un nouveau compte utilisateur
 Accédez à `POST /user` dans la documentation Swagger ou utilisez une requête curl
 
-## 🗄️ Migrations de données
+## Migrations de données
 
 Les migrations Knex sont exécutées **automatiquement** au démarrage du serveur (en développement).
 
@@ -261,7 +261,7 @@ npx knex migrate:rollback
 npx knex migrate:make <nom_migration>
 ```
 
-## 📁 Structure du projet
+## Structure du projet
 
 ```
 iut-project/
@@ -303,7 +303,7 @@ iut-project/
 └── README.md                     # Cette documentation
 ```
 
-## 🔒 Sécurité
+## Sécurité
 
 - **Mots de passe** : Hashés avec bcrypt
 - **Authentification** : JWT avec secret signé
@@ -311,7 +311,7 @@ iut-project/
 - **CORS** : Configuré pour les requêtes autorisées
 - **Tokens** : Expirent après 4 heures
 
-## 🚨 Troubleshooting
+## Troubleshooting
 
 ### Port 3000/8000 déjà utilisé
 ```bash
@@ -332,7 +332,7 @@ kill $(lsof -t -i:8000)
 - Reconnectez-vous pour obtenir un nouveau token
 - Vérifiez le format : `Authorization: Bearer <token>`
 
-## 📄 Licences et dépendances
+## Licences et dépendances
 
 - **@hapi/hapi** - Framework web MIT
 - **mysql2** - Driver MySQL MIT
@@ -340,10 +340,3 @@ kill $(lsof -t -i:8000)
 - **jsonwebtoken** - JWT MIT
 - **nodemailer** - Email MIT
 - Toutes les dépendances utilisent les licences open-source standards
-
-## 🤝 Contributeurs
-
-Projet développé par un étudiant IUT
-
-Dernière mise à jour : 16 février 2026
-"@ | Set-Content README.md
