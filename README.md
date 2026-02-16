@@ -1,4 +1,4 @@
-# IUT Project - API de Gestion de Films 🎬
+# IUT Project - API de Gestion de Films
 
 Une API REST complète et professionnelle pour gérer des utilisateurs, des films et des favoris, avec authentification JWT, notifications par email et export de données CSV.
 
